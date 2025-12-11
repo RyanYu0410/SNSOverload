@@ -1,24 +1,40 @@
 /**
- * ONE MORE SCROLL THEN SLEEP
- * A cute but exhausted late-night scrolling experience
+ * 再刷一条就睡 | ONE MORE SCROLL THEN SLEEP
+ * NEEDY GIRL OVERDOSE style phone experience
  */
 
 // ─────────────────────────────────────────────────────────────────────────────────
 // FAKE POSTS
 // ─────────────────────────────────────────────────────────────────────────────────
 const fakePosts = [
+  // Other images first
+  { image: 'images/cat.png', caption: "meow~ stay up with me 🐱" },
+  { image: 'images/cat2.png', caption: "even the cat is scrolling" },
+  { image: 'images/coff.png', caption: "coffee keeps me alive ☕" },
+  { image: 'images/Desk1.png', caption: "late night desk aesthetic 📚" },
+  { image: 'images/dess.png', caption: "dessert heals everything 🍰" },
+  { image: 'images/lib.png', caption: "the library lights still on" },
+  { image: 'images/mat.png', caption: "a quiet little corner ✨" },
+  { image: 'images/mirr.png', caption: "mirror me at midnight" },
+  { image: 'images/nigh.png', caption: "the night is just right 🌙" },
+  { image: 'images/sit.png', caption: "sitting and zoning out" },
+  { image: 'images/street.png', caption: "midnight streets 💫" },
+  { image: 'images/streets.png', caption: "the other side of the city" },
+  { image: 'images/subway.png', caption: "last train home 🚇" },
+  { image: 'images/table.png', caption: "tiny world on my table" },
+  // feed images at the end
   { image: 'images/feed1.svg', caption: "today's vibe ✨" },
-  { image: 'images/feed2.svg', caption: "the night feels like my mood" },
+  { image: 'images/feed2.svg', caption: "the night matches my mood" },
   { image: 'images/feed3.svg', caption: "pretending to be productive" },
   { image: 'images/feed4.svg', caption: "3am thoughts 🌙" },
-  { image: 'images/feed5.svg', caption: "just one more... right?" },
+  { image: 'images/feed5.svg', caption: "one more... right?" },
   { image: 'images/feed6.svg', caption: "me @ my screen rn" },
-  { image: 'images/feed7.svg', caption: "the algorithm knows" },
+  { image: 'images/feed7.svg', caption: "the algorithm knows me too well" },
   { image: 'images/feed8.svg', caption: "soft hours ☁️" },
-  { image: 'images/feed9.svg', caption: "my bed is right there tho" },
+  { image: 'images/feed9.svg', caption: "my bed is right there tho..." },
   { image: 'images/feed10.svg', caption: "this is definitely the last one" },
-  { image: 'images/feed11.svg', caption: "sleep is a concept 💫" },
-  { image: 'images/feed12.svg', caption: "tomorrow me will deal w this" },
+  { image: 'images/feed11.svg', caption: "sleep is just a concept 💫" },
+  { image: 'images/feed12.svg', caption: "tomorrow me will deal with this" },
   { image: 'images/feed13.svg', caption: "✨ romanticizing bad habits ✨" },
   { image: 'images/feed14.svg', caption: "blue light bestie" },
   { image: 'images/feed15.svg', caption: "chronically online ♡" },
@@ -41,6 +57,7 @@ const floatingMessages = {
 // ─────────────────────────────────────────────────────────────────────────────────
 // STATE
 // ─────────────────────────────────────────────────────────────────────────────────
+let isInApp = false;
 let count = 0;
 let currentPostIndex = 0;
 let isAnimating = false;
@@ -51,9 +68,10 @@ let timerInterval = null;
 // ─────────────────────────────────────────────────────────────────────────────────
 // DOM ELEMENTS
 // ─────────────────────────────────────────────────────────────────────────────────
-const scene1 = document.getElementById('scene1');
-const scene2 = document.getElementById('scene2');
-const startBtn = document.getElementById('startBtn');
+const homeScreen = document.getElementById('homeScreen');
+const appScreen = document.getElementById('appScreen');
+const mainAppIcon = document.getElementById('mainAppIcon');
+const backHomeBtn = document.getElementById('backHomeBtn');
 
 const currentCard = document.getElementById('currentCard');
 const postImage = document.getElementById('postImage');
@@ -62,6 +80,7 @@ const floatingPrompt = document.getElementById('floatingPrompt');
 const promptText = document.getElementById('promptText');
 const tipText = document.getElementById('tipText');
 const timeSpentEl = document.getElementById('timeSpent');
+const appTimeEl = document.getElementById('appTime');
 const sleepIndicator = document.getElementById('sleepIndicator');
 const fakeHearts = document.getElementById('fakeHearts');
 const fakeComments = document.getElementById('fakeComments');
@@ -76,6 +95,9 @@ const restScreen = document.getElementById('restScreen');
 const restCountdown = document.getElementById('restCountdown');
 const sleepScreen = document.getElementById('sleepScreen');
 const sleepMessage = document.getElementById('sleepMessage');
+
+// All app icons (for the "fake app" clicks)
+const allAppIcons = document.querySelectorAll('.app-icon, .dock-icon');
 
 // ─────────────────────────────────────────────────────────────────────────────────
 // PROMPT TEXT
@@ -111,14 +133,83 @@ function formatTime(ms) {
 function updateTimer() {
   if (!startTime) return;
   const elapsed = Date.now() - startTime;
-  timeSpentEl.textContent = formatTime(elapsed);
+  const timeStr = formatTime(elapsed);
+  timeSpentEl.textContent = timeStr;
+  appTimeEl.textContent = timeStr;
 }
 
 // Start the timer
 function startTimer() {
-  startTime = Date.now();
-  timerInterval = setInterval(updateTimer, 1000);
+  if (!startTime) {
+    startTime = Date.now();
+  }
+  if (!timerInterval) {
+    timerInterval = setInterval(updateTimer, 1000);
+  }
   updateTimer();
+}
+
+// Pause the timer (but don't reset)
+function pauseTimer() {
+  if (timerInterval) {
+    clearInterval(timerInterval);
+    timerInterval = null;
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────────
+// SCREEN TRANSITIONS
+// ─────────────────────────────────────────────────────────────────────────────────
+function launchApp() {
+  if (isInApp || isAnimating) return;
+  isAnimating = true;
+  isInApp = true;
+  
+  // Fade out home screen
+  homeScreen.classList.add('fade-out');
+  
+  setTimeout(() => {
+    homeScreen.classList.add('hidden');
+    homeScreen.classList.remove('fade-out');
+    
+    // Show app screen with launch animation
+    appScreen.classList.remove('hidden');
+    appScreen.classList.add('app-launching');
+    
+    // Start timer when entering app
+    startTimer();
+    
+    setTimeout(() => {
+      appScreen.classList.remove('app-launching');
+      isAnimating = false;
+    }, 500);
+  }, 350);
+}
+
+function goBackHome() {
+  if (!isInApp || isAnimating) return;
+  isAnimating = true;
+  isInApp = false;
+  
+  // Pause timer when leaving app
+  pauseTimer();
+  
+  // Fade out app screen
+  appScreen.classList.add('fade-out');
+  
+  setTimeout(() => {
+    appScreen.classList.add('hidden');
+    appScreen.classList.remove('fade-out');
+    
+    // Show home screen
+    homeScreen.classList.remove('hidden');
+    homeScreen.classList.add('fade-in');
+    
+    setTimeout(() => {
+      homeScreen.classList.remove('fade-in');
+      isAnimating = false;
+    }, 400);
+  }, 350);
 }
 
 // ─────────────────────────────────────────────────────────────────────────────────
@@ -126,38 +217,33 @@ function startTimer() {
 // ─────────────────────────────────────────────────────────────────────────────────
 function updateBackground(count) {
   // Gradually darken and shift colors
-  const darkness = Math.min(0.85, count * 0.015);
-  const r = Math.max(8, 13 - count * 0.15);
-  const g = Math.max(5, 8 - count * 0.12);
-  const b = Math.max(18, 24 - count * 0.1);
-  
-  const pinkOpacity = Math.max(0.03, 0.12 - count * 0.003);
+  const pinkOpacity = Math.max(0.03, 0.1 - count * 0.002);
   const cyanOpacity = Math.max(0.02, 0.08 - count * 0.002);
   
-  scene2.style.background = `
+  appScreen.style.background = `
     radial-gradient(ellipse at 30% 30%, rgba(255, 110, 180, ${pinkOpacity}) 0%, transparent 50%),
     radial-gradient(ellipse at 70% 70%, rgba(0, 229, 255, ${cyanOpacity}) 0%, transparent 50%),
     linear-gradient(180deg, 
       rgb(${Math.max(15, 26 - count * 0.3)}, ${Math.max(8, 10 - count * 0.15)}, ${Math.max(35, 46 - count * 0.25)}) 0%, 
-      rgb(${r}, ${g}, ${b}) 100%)
+      rgb(${Math.max(8, 13 - count * 0.15)}, ${Math.max(5, 8 - count * 0.12)}, ${Math.max(18, 24 - count * 0.1)}) 100%)
   `;
 }
 
 function updateGlitchLevel(count) {
-  scene2.classList.remove('glitch-level-1', 'glitch-level-2', 'glitch-level-3');
+  appScreen.classList.remove('glitch-level-1', 'glitch-level-2', 'glitch-level-3');
   
   if (count >= 30) {
-    scene2.classList.add('glitch-level-3');
+    appScreen.classList.add('glitch-level-3');
     glitchOverlay.style.opacity = '0.35';
     scanLines.style.opacity = '0.4';
     noiseOverlay.style.opacity = '0.12';
   } else if (count >= 20) {
-    scene2.classList.add('glitch-level-2');
+    appScreen.classList.add('glitch-level-2');
     glitchOverlay.style.opacity = '0.2';
     scanLines.style.opacity = '0.25';
     noiseOverlay.style.opacity = '0.06';
   } else if (count >= 10) {
-    scene2.classList.add('glitch-level-1');
+    appScreen.classList.add('glitch-level-1');
     glitchOverlay.style.opacity = '0.08';
     scanLines.style.opacity = '0.12';
     noiseOverlay.style.opacity = '0.02';
@@ -170,11 +256,9 @@ function updateGlitchLevel(count) {
 
 // Sleepy vignette - gets darker as you scroll more
 function updateVignette(count) {
-  // Start showing vignette at count 3, max at count 40
   if (count < 3) {
     vignetteOverlay.style.opacity = '0';
   } else {
-    // Gradually increase from 0 to 1 between count 3 and 40
     const intensity = Math.min(1, (count - 3) / 37);
     vignetteOverlay.style.opacity = intensity.toFixed(2);
   }
@@ -202,7 +286,6 @@ function showFloatingMessage(text, position, type = 'default') {
   const msg = document.createElement('div');
   msg.className = `float-msg msg-${type}`;
   
-  // Parse position
   const [horizontal, vertical] = position.split(' ');
   msg.classList.add(`msg-${horizontal}`);
   msg.classList.add(`msg-${vertical}`);
@@ -210,7 +293,6 @@ function showFloatingMessage(text, position, type = 'default') {
   msg.textContent = text;
   floatingMessagesContainer.appendChild(msg);
   
-  // Remove after animation
   setTimeout(() => {
     msg.remove();
   }, 4000);
@@ -253,7 +335,7 @@ function goToSleep() {
     see you next time~
   `;
   
-  scene2.classList.add('hidden');
+  appScreen.classList.add('hidden');
   sleepScreen.classList.remove('hidden');
 }
 
@@ -298,7 +380,7 @@ function slideToNextPost() {
 // MAIN SCROLL HANDLER
 // ─────────────────────────────────────────────────────────────────────────────────
 function handleScroll() {
-  if (isAnimating) return;
+  if (isAnimating || !isInApp) return;
   
   count++;
   
@@ -315,28 +397,47 @@ function handleScroll() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────────
+// FAKE APP CLICK FEEDBACK
+// ─────────────────────────────────────────────────────────────────────────────────
+function handleFakeAppClick(e) {
+  const appName = e.currentTarget.dataset.app;
+  
+  // If it's the main app, launch it
+  if (appName === 'scroll') {
+    launchApp();
+    return;
+  }
+  
+  // For other apps, just show a brief feedback
+  const icon = e.currentTarget;
+  icon.style.transform = 'scale(0.9)';
+  setTimeout(() => {
+    icon.style.transform = '';
+  }, 150);
+}
+
+// ─────────────────────────────────────────────────────────────────────────────────
 // EVENT LISTENERS
 // ─────────────────────────────────────────────────────────────────────────────────
 
-// Start button
-startBtn.addEventListener('click', () => {
-  scene1.classList.add('hidden');
-  setTimeout(() => {
-    scene2.classList.remove('hidden');
-    startTimer(); // Start counting time
-  }, 300);
+// App icon clicks
+allAppIcons.forEach(icon => {
+  icon.addEventListener('click', handleFakeAppClick);
 });
 
-// Prompt click
+// Back to home
+backHomeBtn.addEventListener('click', goBackHome);
+
+// Prompt click (scroll)
 floatingPrompt.addEventListener('click', handleScroll);
 
 // Touch swipe
 let touchStartY = 0;
-scene2.addEventListener('touchstart', (e) => {
+appScreen.addEventListener('touchstart', (e) => {
   touchStartY = e.changedTouches[0].screenY;
 }, { passive: true });
 
-scene2.addEventListener('touchend', (e) => {
+appScreen.addEventListener('touchend', (e) => {
   const swipeDistance = touchStartY - e.changedTouches[0].screenY;
   if (swipeDistance > 40) {
     handleScroll();
@@ -345,7 +446,7 @@ scene2.addEventListener('touchend', (e) => {
 
 // Mouse wheel
 let wheelCooldown = false;
-scene2.addEventListener('wheel', (e) => {
+appScreen.addEventListener('wheel', (e) => {
   if (wheelCooldown) return;
   wheelCooldown = true;
   setTimeout(() => wheelCooldown = false, 400);
@@ -357,13 +458,34 @@ scene2.addEventListener('wheel', (e) => {
 
 // Keyboard
 document.addEventListener('keydown', (e) => {
-  if (scene2.classList.contains('hidden')) return;
+  if (!isInApp) return;
   
   if (e.key === 'ArrowDown' || e.key === ' ' || e.key === 'Enter') {
     e.preventDefault();
     handleScroll();
   }
+  
+  // Escape to go back home
+  if (e.key === 'Escape') {
+    goBackHome();
+  }
 });
+
+// ─────────────────────────────────────────────────────────────────────────────────
+// CLOCK UPDATE (for home screen status bar)
+// ─────────────────────────────────────────────────────────────────────────────────
+function updateStatusBarTime() {
+  const now = new Date();
+  const hours = now.getHours().toString().padStart(2, '0');
+  const minutes = now.getMinutes().toString().padStart(2, '0');
+  const timeEl = document.querySelector('.status-time');
+  if (timeEl) {
+    timeEl.textContent = `${hours}:${minutes}`;
+  }
+}
+
+// Update time every minute
+setInterval(updateStatusBarTime, 60000);
 
 // ─────────────────────────────────────────────────────────────────────────────────
 // INIT
@@ -374,8 +496,9 @@ function init() {
   postCaption.textContent = firstPost.caption;
   promptText.textContent = getPromptText(0);
   tipText.textContent = getTipText(0);
+  
+  // Set initial clock
+  updateStatusBarTime();
 }
 
 document.addEventListener('DOMContentLoaded', init);
-
-

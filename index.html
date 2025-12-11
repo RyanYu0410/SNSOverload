@@ -1,148 +1,273 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>One More Scroll Then Sleep</title>
+  <title>再刷一条就睡 | One More Scroll Then Sleep</title>
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Caveat:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Caveat:wght@400;500&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
   <!-- ═══════════════════════════════════════════════════════════════════════
-       SCENE 1: TITLE SCREEN
+       BACKGROUND - Deep night aesthetic
        ═══════════════════════════════════════════════════════════════════════ -->
-  <div id="scene1" class="scene scene-title">
-    <!-- Cute decorations -->
-    <div class="title-decorations">
-      <div class="deco-float" style="top: 12%; left: 8%;">♥</div>
-      <div class="deco-float" style="top: 20%; right: 12%;">✦</div>
-      <div class="deco-float" style="top: 40%; left: 5%;">♡</div>
-      <div class="deco-float" style="top: 55%; right: 6%;">★</div>
-      <div class="deco-float" style="top: 75%; left: 10%;">✧</div>
-      <div class="deco-float" style="bottom: 18%; right: 15%;">♪</div>
-      <div class="deco-float" style="top: 30%; left: 15%;">💫</div>
-      <div class="deco-float" style="bottom: 30%; left: 6%;">🌙</div>
-    </div>
-    
-    <!-- Glowing orbs -->
-    <div class="orbs">
-      <div class="orb orb-1"></div>
-      <div class="orb orb-2"></div>
-      <div class="orb orb-3"></div>
-    </div>
-    
-    <!-- Title content -->
-    <div class="title-content">
-      <h1 class="main-title glitch" data-text="scene1">scene1</h1>
-      <div class="title-line">
-        <span class="line-segment"></span>
-        <span class="line-dot"></span>
-        <span class="line-segment"></span>
-      </div>
-      <p class="subtitle">One More Scroll Then Sleep</p>
-      
-      <div class="start-btn-container">
-        <button id="startBtn" class="start-btn">
-          <span class="btn-text">START</span>
-          <span class="btn-glow"></span>
-        </button>
-      </div>
-      
-      <p class="hint-text">click to enter ♡</p>
-    </div>
+  <div class="page-background">
+    <div class="bg-orb bg-orb-1"></div>
+    <div class="bg-orb bg-orb-2"></div>
+    <div class="bg-orb bg-orb-3"></div>
+    <div class="bg-orb bg-orb-4"></div>
+    <!-- Floating stickers around phone -->
+    <div class="bg-sticker sticker-1">♡</div>
+    <div class="bg-sticker sticker-2">✦</div>
+    <div class="bg-sticker sticker-3">Zzz</div>
+    <div class="bg-sticker sticker-4">💭</div>
+    <div class="bg-sticker sticker-5">★</div>
+    <div class="bg-sticker sticker-6">🌙</div>
+    <div class="bg-sticker sticker-7">♪</div>
+    <div class="bg-sticker sticker-8">✧</div>
   </div>
 
   <!-- ═══════════════════════════════════════════════════════════════════════
-       SCENE 2: SCROLLING FEED
+       PHONE FRAME
        ═══════════════════════════════════════════════════════════════════════ -->
-  <div id="scene2" class="scene scene-feed hidden">
-    <!-- Sleepy vignette overlay -->
-    <div id="vignetteOverlay" class="vignette-overlay"></div>
-    
-    <!-- Glitch overlays -->
-    <div id="glitchOverlay" class="glitch-overlay"></div>
-    <div id="scanLines" class="scan-lines"></div>
-    <div id="noiseOverlay" class="noise-overlay"></div>
-    
-    <!-- Cute floating decorations -->
-    <div class="feed-decorations">
-      <div class="deco-float deco-tiny" style="top: 8%; left: 4%;">♥</div>
-      <div class="deco-float deco-tiny" style="top: 15%; right: 6%;">✦</div>
-      <div class="deco-float deco-tiny" style="top: 35%; left: 3%;">💬</div>
-      <div class="deco-float deco-tiny" style="top: 50%; right: 4%;">♡</div>
-      <div class="deco-float deco-tiny" style="top: 70%; left: 6%;">★</div>
-      <div class="deco-float deco-tiny" style="bottom: 12%; right: 8%;">✧</div>
-      <div class="deco-float deco-tiny" style="top: 25%; right: 10%;">🌙</div>
-      <div class="deco-float deco-tiny" style="bottom: 25%; left: 8%;">💫</div>
-    </div>
-    
-    <!-- Floating message bubbles (replaces overlays) -->
-    <div id="floatingMessages" class="floating-messages"></div>
-    
-    <!-- Sleep indicator -->
-    <div id="sleepIndicator" class="sleep-indicator"></div>
-    
-    <!-- Card area -->
-    <div class="card-viewport">
-      <div id="cardContainer" class="card-container">
-        <div id="currentCard" class="post-card">
-          <div class="card-inner">
-            <div class="post-image-wrapper">
-              <img id="postImage" src="images/feed1.svg" alt="" class="post-image">
-              <div class="image-glitch"></div>
+  <div class="phone-container">
+    <div class="phone-frame">
+      <!-- Side buttons -->
+      <div class="phone-btn phone-btn-volume-up"></div>
+      <div class="phone-btn phone-btn-volume-down"></div>
+      <div class="phone-btn phone-btn-power"></div>
+      
+      <!-- Notch -->
+      <div class="phone-notch">
+        <div class="notch-camera"></div>
+        <div class="notch-speaker"></div>
+      </div>
+      
+      <!-- Phone Screen -->
+      <div class="phone-screen">
+        <!-- ═══════════════════════════════════════════════════════════════════════
+             HOME SCREEN (Launcher)
+             ═══════════════════════════════════════════════════════════════════════ -->
+        <div id="homeScreen" class="screen-layer home-screen">
+          <!-- Status Bar -->
+          <div class="status-bar-phone">
+            <span class="status-time">23:47</span>
+            <div class="status-icons">
+              <span class="status-icon icon-signal">
+                <span></span><span></span><span></span><span></span>
+              </span>
+              <span class="status-icon icon-wifi">
+                <span></span><span></span><span></span>
+              </span>
+              <span class="status-icon icon-battery">
+                <span class="battery-level"></span>
+              </span>
             </div>
-            <p id="postCaption" class="post-caption">today's vibe ✨</p>
-            <div class="engagement-bar">
-              <span class="engage-item">♡ <span id="fakeHearts">128</span></span>
-              <span class="engage-item">💬 <span id="fakeComments">24</span></span>
+          </div>
+          
+          <!-- Wallpaper with text -->
+          <div class="home-wallpaper">
+            <div class="wallpaper-decor wallpaper-star-1">✦</div>
+            <div class="wallpaper-decor wallpaper-star-2">★</div>
+            <div class="wallpaper-decor wallpaper-star-3">✧</div>
+            <div class="wallpaper-decor wallpaper-heart-1">♡</div>
+            <div class="wallpaper-decor wallpaper-heart-2">♥</div>
+            <div class="wallpaper-decor wallpaper-moon">🌙</div>
+            <div class="home-title">
+              <span class="home-title-jp">「One More Scroll」</span>
+              <span class="home-title-sub">Then Sleep</span>
+            </div>
+          </div>
+          
+          <!-- App Grid -->
+          <div class="app-grid">
+            <!-- Row 1 -->
+            <div class="app-icon app-icon-disabled" data-app="photos">
+              <div class="app-icon-bg">
+                <span class="app-icon-emoji">📷</span>
+              </div>
+              <span class="app-icon-label">Photos</span>
+            </div>
+            <div class="app-icon app-icon-disabled" data-app="weather">
+              <div class="app-icon-bg">
+                <span class="app-icon-emoji">🌤️</span>
+              </div>
+              <span class="app-icon-label">Weather</span>
+            </div>
+            <div class="app-icon app-icon-disabled" data-app="notes">
+              <div class="app-icon-bg">
+                <span class="app-icon-emoji">📝</span>
+              </div>
+              <span class="app-icon-label">Notes</span>
+            </div>
+            <!-- Row 2 -->
+            <div class="app-icon app-icon-disabled" data-app="chat">
+              <div class="app-icon-bg">
+                <span class="app-icon-emoji">💬</span>
+              </div>
+              <span class="app-icon-label">Chat</span>
+            </div>
+            <div class="app-icon app-icon-main" data-app="scroll" id="mainAppIcon">
+              <div class="app-icon-bg app-icon-glow">
+                <span class="app-icon-emoji">🌙</span>
+                <span class="app-icon-heart">♡</span>
+                <span class="app-icon-zzz">z</span>
+              </div>
+              <span class="app-icon-label">One More Scroll</span>
+              <div class="app-notification">!</div>
+            </div>
+            <div class="app-icon app-icon-disabled" data-app="music">
+              <div class="app-icon-bg">
+                <span class="app-icon-emoji">🎵</span>
+              </div>
+              <span class="app-icon-label">Music</span>
+            </div>
+            <!-- Row 3 -->
+            <div class="app-icon app-icon-disabled" data-app="settings">
+              <div class="app-icon-bg">
+                <span class="app-icon-emoji">⚙️</span>
+              </div>
+              <span class="app-icon-label">Settings</span>
+            </div>
+            <div class="app-icon app-icon-disabled" data-app="clock">
+              <div class="app-icon-bg">
+                <span class="app-icon-emoji">⏰</span>
+              </div>
+              <span class="app-icon-label">Alarm</span>
+            </div>
+            <div class="app-icon app-icon-disabled" data-app="browser">
+              <div class="app-icon-bg">
+                <span class="app-icon-emoji">🌐</span>
+              </div>
+              <span class="app-icon-label">Browser</span>
+            </div>
+          </div>
+          
+          <!-- Dock -->
+          <div class="home-dock">
+            <div class="dock-icon dock-icon-disabled" data-app="phone">
+              <div class="dock-icon-bg">📞</div>
+            </div>
+            <div class="dock-icon dock-icon-disabled" data-app="messages">
+              <div class="dock-icon-bg">✉️</div>
+            </div>
+            <div class="dock-icon dock-icon-disabled" data-app="camera">
+              <div class="dock-icon-bg">📸</div>
+            </div>
+            <div class="dock-icon dock-icon-disabled" data-app="gallery">
+              <div class="dock-icon-bg">🖼️</div>
+            </div>
+          </div>
+          
+          <!-- Home indicator -->
+          <div class="home-indicator"></div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════════════════
+             APP SCREEN (再刷一条就睡)
+             ═══════════════════════════════════════════════════════════════════════ -->
+        <div id="appScreen" class="screen-layer app-screen hidden">
+          <!-- App Header -->
+          <div class="app-header">
+            <button id="backHomeBtn" class="back-home-btn">
+              <span class="back-arrow">‹</span>
+              <span class="back-text">Home</span>
+            </button>
+            <span class="app-header-title">One More Scroll</span>
+            <span class="app-header-time" id="appTime">0:00</span>
+          </div>
+          
+          <!-- Sleepy vignette overlay -->
+          <div id="vignetteOverlay" class="vignette-overlay"></div>
+          
+          <!-- Glitch overlays -->
+          <div id="glitchOverlay" class="glitch-overlay"></div>
+          <div id="scanLines" class="scan-lines"></div>
+          <div id="noiseOverlay" class="noise-overlay"></div>
+          
+          <!-- Floating decorations -->
+          <div class="feed-decorations">
+            <div class="deco-float deco-tiny" style="top: 15%; left: 5%;">♥</div>
+            <div class="deco-float deco-tiny" style="top: 25%; right: 8%;">✦</div>
+            <div class="deco-float deco-tiny" style="top: 45%; left: 4%;">💬</div>
+            <div class="deco-float deco-tiny" style="top: 60%; right: 5%;">♡</div>
+            <div class="deco-float deco-tiny" style="top: 75%; left: 7%;">★</div>
+            <div class="deco-float deco-tiny" style="bottom: 18%; right: 6%;">✧</div>
+          </div>
+          
+          <!-- Floating message bubbles -->
+          <div id="floatingMessages" class="floating-messages"></div>
+          
+          <!-- Sleep indicator -->
+          <div id="sleepIndicator" class="sleep-indicator"></div>
+          
+          <!-- Card area -->
+          <div class="card-viewport">
+            <div id="cardContainer" class="card-container">
+              <div id="currentCard" class="post-card">
+                <div class="card-inner">
+                  <div class="post-image-wrapper">
+                    <img id="postImage" src="images/feed1.svg" alt="" class="post-image">
+                    <div class="image-glitch"></div>
+                  </div>
+                  <p id="postCaption" class="post-caption">today's vibe ✨</p>
+                  <div class="engagement-bar">
+                    <span class="engage-item">♡ <span id="fakeHearts">128</span></span>
+                    <span class="engage-item">💬 <span id="fakeComments">24</span></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Floating prompt -->
+          <div class="prompt-area">
+            <div id="floatingPrompt" class="floating-prompt">
+              <span class="prompt-text" id="promptText">One More Scroll Then Sleep</span>
+              <span class="swipe-hint">↑</span>
+            </div>
+          </div>
+          
+          <!-- Status bar -->
+          <div class="feed-status-bar">
+            <p id="tipText" class="tip-text"></p>
+            <span class="status-divider">·</span>
+            <p id="timeSpent" class="time-text">0:00</p>
+          </div>
+          
+          <!-- Home indicator -->
+          <div class="home-indicator"></div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════════════════
+             REST SCREEN (5 second break)
+             ═══════════════════════════════════════════════════════════════════════ -->
+        <div id="restScreen" class="screen-layer rest-screen hidden">
+          <div class="rest-content">
+            <div class="breath-circle"></div>
+            <p class="rest-text">take a break... ♡</p>
+            <p id="restCountdown" class="rest-countdown">5</p>
+            <p class="rest-subtext">(you can blink now~)</p>
+          </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════════════════
+             SLEEP SCREEN
+             ═══════════════════════════════════════════════════════════════════════ -->
+        <div id="sleepScreen" class="screen-layer sleep-screen hidden">
+          <div class="sleep-content">
+            <div class="moon">🌙</div>
+            <h1 class="sleep-title">Good Night ♡</h1>
+            <p id="sleepMessage" class="sleep-message"></p>
+            <div class="sleep-clouds">
+              <span>☁️</span>
+              <span>💤</span>
+              <span>☁️</span>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-    
-    <!-- Floating prompt -->
-    <div class="prompt-area">
-      <div id="floatingPrompt" class="floating-prompt">
-        <span class="prompt-text" id="promptText">One More Scroll Then Sleep</span>
-        <span class="swipe-hint">↑</span>
-      </div>
-    </div>
-    
-    <!-- Cute counter with timer -->
-    <div class="status-bar">
-      <p id="tipText" class="tip-text"></p>
-      <span class="status-divider">·</span>
-      <p id="timeSpent" class="time-text">0:00</p>
-    </div>
-  </div>
-
-  <!-- ═══════════════════════════════════════════════════════════════════════
-       REST SCREEN (5 second break)
-       ═══════════════════════════════════════════════════════════════════════ -->
-  <div id="restScreen" class="rest-screen hidden">
-    <div class="rest-content">
-      <div class="breath-circle"></div>
-      <p class="rest-text">just 5 seconds... ♡</p>
-      <p id="restCountdown" class="rest-countdown">5</p>
-      <p class="rest-subtext">(you can keep your eyes open)</p>
-    </div>
-  </div>
-
-  <!-- ═══════════════════════════════════════════════════════════════════════
-       SLEEP SCREEN
-       ═══════════════════════════════════════════════════════════════════════ -->
-  <div id="sleepScreen" class="sleep-screen hidden">
-    <div class="sleep-content">
-      <div class="moon">🌙</div>
-      <h1 class="sleep-title">Good Night ♡</h1>
-      <p id="sleepMessage" class="sleep-message"></p>
-      <div class="sleep-clouds">
-        <span>☁️</span>
-        <span>💤</span>
-        <span>☁️</span>
       </div>
     </div>
   </div>
@@ -150,5 +275,3 @@
   <script src="script.js"></script>
 </body>
 </html>
-
-
