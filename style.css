@@ -1,0 +1,1118 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   ONE MORE SCROLL THEN SLEEP
+   Cute but overloaded - NEEDY GIRL OVERDRIVE vibes
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* Bright, sweet colors */
+  --pink: #ff6eb4;
+  --pink-light: #ffb4d9;
+  --pink-hot: #ff1493;
+  --purple: #bf7fff;
+  --purple-light: #e0b3ff;
+  --cyan: #00e5ff;
+  --cyan-light: #80f0ff;
+  --yellow: #fff176;
+  --peach: #ffb88c;
+  
+  /* Dark room background */
+  --bg-dark: #0d0818;
+  --bg-purple: #1a0a2e;
+  --bg-card: rgba(25, 12, 45, 0.92);
+  
+  --text-primary: #ffffff;
+  --text-soft: rgba(255, 255, 255, 0.85);
+  --text-muted: rgba(255, 255, 255, 0.5);
+  
+  --font-main: 'Nunito', sans-serif;
+  --font-hand: 'Caveat', cursive;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: var(--font-main);
+  background: var(--bg-dark);
+  color: var(--text-primary);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SCENES
+   ═══════════════════════════════════════════════════════════════════════════ */
+.scene {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.scene.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(1.02);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SCENE 1: TITLE
+   ═══════════════════════════════════════════════════════════════════════════ */
+.scene-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: 
+    radial-gradient(ellipse at 25% 25%, rgba(255, 110, 180, 0.2) 0%, transparent 50%),
+    radial-gradient(ellipse at 75% 75%, rgba(0, 229, 255, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(191, 127, 255, 0.1) 0%, transparent 60%),
+    linear-gradient(180deg, var(--bg-purple) 0%, var(--bg-dark) 100%);
+}
+
+/* Floating decorations */
+.title-decorations, .feed-decorations {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.deco-float {
+  position: absolute;
+  font-size: 1.6rem;
+  opacity: 0.5;
+  animation: floatDeco 6s ease-in-out infinite;
+  text-shadow: 0 0 15px currentColor;
+}
+
+.deco-float:nth-child(odd) {
+  color: var(--pink);
+  animation-duration: 5s;
+}
+
+.deco-float:nth-child(even) {
+  color: var(--cyan);
+  animation-duration: 7s;
+  animation-delay: -2s;
+}
+
+.deco-float:nth-child(3n) {
+  color: var(--purple);
+  animation-duration: 6s;
+  animation-delay: -1s;
+}
+
+.deco-tiny {
+  font-size: 1.2rem;
+  opacity: 0.35;
+}
+
+@keyframes floatDeco {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(8px, -15px) rotate(8deg); }
+  66% { transform: translate(-5px, -8px) rotate(-5deg); }
+}
+
+/* Glowing orbs */
+.orbs {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.35;
+  animation: orbMove 20s ease-in-out infinite;
+}
+
+.orb-1 {
+  width: 350px;
+  height: 350px;
+  background: var(--pink);
+  top: -50px;
+  left: -80px;
+}
+
+.orb-2 {
+  width: 280px;
+  height: 280px;
+  background: var(--purple);
+  bottom: -30px;
+  right: -50px;
+  animation-delay: -7s;
+}
+
+.orb-3 {
+  width: 220px;
+  height: 220px;
+  background: var(--cyan);
+  top: 40%;
+  left: 60%;
+  animation-delay: -14s;
+}
+
+@keyframes orbMove {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(30px, -20px) scale(1.1); }
+}
+
+/* Title content */
+.title-content {
+  text-align: center;
+  z-index: 10;
+}
+
+.main-title {
+  font-size: 4.5rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: lowercase;
+  background: linear-gradient(90deg, var(--pink), var(--purple), var(--cyan), var(--pink));
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientFlow 3s ease infinite;
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.glitch {
+  position: relative;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, var(--pink), var(--purple), var(--cyan));
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glitch::before {
+  animation: glitchTop 2.5s infinite linear alternate-reverse;
+  clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+}
+
+.glitch::after {
+  animation: glitchBottom 2s infinite linear alternate-reverse;
+  clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
+}
+
+@keyframes glitchTop {
+  0%, 100% { transform: translate(0); }
+  25% { transform: translate(-2px, 2px); }
+  50% { transform: translate(2px, -2px); }
+  75% { transform: translate(-2px, -2px); }
+}
+
+@keyframes glitchBottom {
+  0%, 100% { transform: translate(0); }
+  25% { transform: translate(2px, -2px); }
+  50% { transform: translate(-2px, 2px); }
+  75% { transform: translate(2px, 2px); }
+}
+
+@keyframes gradientFlow {
+  0%, 100% { background-position: 0% center; }
+  50% { background-position: 300% center; }
+}
+
+.title-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.line-segment {
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--purple), transparent);
+  animation: lineGlow 2s ease-in-out infinite;
+}
+
+.line-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--pink);
+  box-shadow: 0 0 12px var(--pink), 0 0 24px var(--pink);
+  animation: dotPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes lineGlow {
+  0%, 100% { width: 50px; opacity: 0.5; }
+  50% { width: 80px; opacity: 1; }
+}
+
+@keyframes dotPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.4); }
+}
+
+.subtitle {
+  font-family: var(--font-hand);
+  font-size: 1.4rem;
+  color: var(--text-soft);
+  margin-bottom: 40px;
+}
+
+/* Start button */
+.start-btn-container {
+  margin-bottom: 25px;
+}
+
+.start-btn {
+  position: relative;
+  padding: 16px 55px;
+  font-family: var(--font-main);
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 0.25em;
+  color: white;
+  background: linear-gradient(135deg, var(--pink) 0%, var(--purple) 100%);
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  border-radius: 50px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 
+    0 0 25px rgba(255, 110, 180, 0.5),
+    0 0 50px rgba(255, 110, 180, 0.25);
+}
+
+.start-btn:hover {
+  transform: scale(1.06);
+  box-shadow: 
+    0 0 40px rgba(255, 110, 180, 0.7),
+    0 0 80px rgba(255, 110, 180, 0.4);
+}
+
+.start-btn:active {
+  transform: scale(0.98);
+}
+
+.btn-glow {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  animation: btnShine 2.5s infinite;
+}
+
+@keyframes btnShine {
+  0% { left: -100%; }
+  50%, 100% { left: 100%; }
+}
+
+.hint-text {
+  font-family: var(--font-hand);
+  font-size: 1rem;
+  color: var(--text-muted);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SCENE 2: SCROLLING FEED
+   ═══════════════════════════════════════════════════════════════════════════ */
+.scene-feed {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: 
+    radial-gradient(ellipse at 30% 30%, rgba(255, 110, 180, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 70%, rgba(0, 229, 255, 0.08) 0%, transparent 50%),
+    linear-gradient(180deg, var(--bg-purple) 0%, var(--bg-dark) 100%);
+  transition: all 0.8s ease;
+}
+
+/* Sleepy vignette - gets darker as you scroll more */
+.vignette-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 50;
+  opacity: 0;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 0%,
+    transparent 30%,
+    rgba(0, 0, 0, 0.3) 70%,
+    rgba(0, 0, 0, 0.8) 100%
+  );
+  transition: opacity 0.8s ease;
+}
+
+/* Glitch overlays */
+.glitch-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0px,
+    transparent 2px,
+    rgba(255, 110, 180, 0.04) 2px,
+    rgba(255, 110, 180, 0.04) 4px
+  );
+}
+
+.scan-lines {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 99;
+  opacity: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.12) 0px,
+    rgba(0, 0, 0, 0.12) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+}
+
+.noise-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 98;
+  opacity: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   FLOATING MESSAGES (replaces blocking overlays)
+   ───────────────────────────────────────────────────────────────────────────── */
+.floating-messages {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 50;
+}
+
+.float-msg {
+  position: absolute;
+  max-width: 200px;
+  padding: 10px 15px;
+  font-size: 0.85rem;
+  font-family: var(--font-hand);
+  color: var(--text-soft);
+  background: rgba(30, 15, 50, 0.85);
+  border: 1px solid rgba(255, 110, 180, 0.4);
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(255, 110, 180, 0.2);
+  animation: floatMsg 4s ease-in-out forwards;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.float-msg::after {
+  content: '♡';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.7rem;
+  color: var(--pink);
+}
+
+.float-msg.msg-left {
+  left: 15px;
+  animation-name: floatMsgLeft;
+}
+
+.float-msg.msg-right {
+  right: 15px;
+  animation-name: floatMsgRight;
+}
+
+.float-msg.msg-top {
+  top: 80px;
+}
+
+.float-msg.msg-mid {
+  top: 40%;
+}
+
+.float-msg.msg-bottom {
+  bottom: 120px;
+}
+
+@keyframes floatMsgLeft {
+  0% { opacity: 0; transform: translateX(-30px) translateY(10px); }
+  15% { opacity: 1; transform: translateX(0) translateY(0); }
+  85% { opacity: 1; transform: translateX(5px) translateY(-10px); }
+  100% { opacity: 0; transform: translateX(10px) translateY(-20px); }
+}
+
+@keyframes floatMsgRight {
+  0% { opacity: 0; transform: translateX(30px) translateY(10px); }
+  15% { opacity: 1; transform: translateX(0) translateY(0); }
+  85% { opacity: 1; transform: translateX(-5px) translateY(-10px); }
+  100% { opacity: 0; transform: translateX(-10px) translateY(-20px); }
+}
+
+/* Special message styles */
+.float-msg.msg-eye {
+  border-color: rgba(0, 229, 255, 0.5);
+  box-shadow: 0 0 15px rgba(0, 229, 255, 0.2);
+}
+
+.float-msg.msg-brain {
+  border-color: rgba(191, 127, 255, 0.5);
+  box-shadow: 0 0 15px rgba(191, 127, 255, 0.2);
+}
+
+.float-msg.msg-cat {
+  border-color: rgba(255, 241, 118, 0.5);
+  box-shadow: 0 0 15px rgba(255, 241, 118, 0.2);
+}
+
+/* Sleep indicator */
+.sleep-indicator {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  font-family: var(--font-hand);
+  font-size: 2rem;
+  color: var(--cyan);
+  opacity: 0;
+  text-shadow: 0 0 20px var(--cyan);
+  z-index: 50;
+  animation: sleepFloat 3s ease-in-out infinite;
+  transition: opacity 0.5s ease;
+}
+
+.sleep-indicator.visible {
+  opacity: 0.7;
+}
+
+@keyframes sleepFloat {
+  0%, 100% { transform: translateY(0) rotate(-3deg); }
+  50% { transform: translateY(-8px) rotate(3deg); }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   CARD - Larger and responsive
+   ───────────────────────────────────────────────────────────────────────────── */
+.card-viewport {
+  width: 90vw;
+  max-width: 420px;
+  height: 65vh;
+  max-height: 580px;
+  min-height: 400px;
+  overflow: hidden;
+  position: relative;
+  z-index: 10;
+}
+
+.card-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.post-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg-card);
+  border-radius: 20px;
+  border: 2px solid rgba(255, 110, 180, 0.35);
+  overflow: hidden;
+  box-shadow: 
+    0 0 30px rgba(255, 110, 180, 0.25),
+    0 0 60px rgba(255, 110, 180, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  /* No transition on transform - let animations handle it */
+  transition: filter 0.4s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-inner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Slide animations - use !important to override glitch shake */
+.post-card.sliding-out {
+  animation: slideOut 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards !important;
+}
+
+.post-card.sliding-in {
+  animation: slideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards !important;
+}
+
+@keyframes slideOut {
+  0% { 
+    transform: translateY(0) scale(1) rotate(0deg); 
+    opacity: 1; 
+  }
+  100% { 
+    transform: translateY(-120%) scale(0.8) rotate(-5deg); 
+    opacity: 0; 
+  }
+}
+
+@keyframes slideIn {
+  0% { 
+    transform: translateY(120%) scale(0.8) rotate(5deg); 
+    opacity: 0; 
+  }
+  100% { 
+    transform: translateY(0) scale(1) rotate(0deg); 
+    opacity: 1; 
+  }
+}
+
+/* Image */
+.post-image-wrapper {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+  background: linear-gradient(135deg, #1a0a2e 0%, #0f0520 100%);
+}
+
+.post-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: filter 0.5s ease;
+}
+
+.image-glitch {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(
+    45deg,
+    rgba(255, 0, 128, 0.12) 0%,
+    transparent 50%,
+    rgba(0, 255, 255, 0.12) 100%
+  );
+  mix-blend-mode: screen;
+  animation: imgGlitch 0.15s infinite;
+}
+
+@keyframes imgGlitch {
+  0%, 100% { transform: translate(0); }
+  33% { transform: translate(-2px, 2px); }
+  66% { transform: translate(2px, -2px); }
+}
+
+.post-caption {
+  padding: 12px 15px;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  color: var(--text-soft);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.engagement-bar {
+  display: flex;
+  gap: 18px;
+  padding: 10px 15px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.engage-item {
+  transition: all 0.2s ease;
+}
+
+.engage-item:hover {
+  color: var(--pink);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   FLOATING PROMPT
+   ───────────────────────────────────────────────────────────────────────────── */
+.prompt-area {
+  margin-top: 25px;
+  text-align: center;
+  z-index: 10;
+}
+
+.floating-prompt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  animation: promptBob 2.5s ease-in-out infinite;
+  transition: transform 0.2s ease;
+}
+
+.floating-prompt:hover {
+  transform: scale(1.05);
+}
+
+.prompt-text {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--pink);
+  text-shadow: 0 0 12px var(--pink), 0 0 25px rgba(255, 110, 180, 0.5);
+  transition: all 0.3s ease;
+  animation: textGlow 2s ease-in-out infinite alternate;
+}
+
+.swipe-hint {
+  font-size: 1.2rem;
+  color: var(--cyan);
+  margin-top: 5px;
+  opacity: 0.6;
+  animation: swipeUp 1.2s ease-in-out infinite;
+}
+
+@keyframes promptBob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes textGlow {
+  0% { filter: brightness(1); }
+  100% { filter: brightness(1.2); }
+}
+
+@keyframes swipeUp {
+  0%, 100% { transform: translateY(0); opacity: 0.6; }
+  50% { transform: translateY(-6px); opacity: 1; }
+}
+
+/* Tip text */
+.status-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 15px;
+  z-index: 10;
+}
+
+.tip-text {
+  font-family: var(--font-hand);
+  font-size: 1rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.status-divider {
+  color: var(--text-muted);
+  opacity: 0.5;
+}
+
+.time-text {
+  font-family: var(--font-hand);
+  font-size: 1rem;
+  color: var(--cyan);
+  text-shadow: 0 0 8px rgba(0, 229, 255, 0.5);
+  opacity: 0.8;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   REST SCREEN
+   ═══════════════════════════════════════════════════════════════════════════ */
+.rest-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(ellipse at center, rgba(25, 12, 45, 0.98) 0%, rgba(10, 8, 20, 0.99) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  transition: opacity 0.4s ease;
+}
+
+.rest-screen.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.rest-content {
+  text-align: center;
+}
+
+.breath-circle {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--purple) 0%, transparent 70%);
+  margin: 0 auto 25px;
+  animation: breathe 4s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0%, 100% { transform: scale(0.8); opacity: 0.4; }
+  50% { transform: scale(1.15); opacity: 0.7; }
+}
+
+.rest-text {
+  font-family: var(--font-hand);
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+  color: var(--text-soft);
+}
+
+.rest-countdown {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--cyan);
+  text-shadow: 0 0 25px var(--cyan);
+  margin-bottom: 15px;
+}
+
+.rest-subtext {
+  font-family: var(--font-hand);
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SLEEP SCREEN
+   ═══════════════════════════════════════════════════════════════════════════ */
+.sleep-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, #0a0515 0%, #050208 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 250;
+  transition: opacity 0.8s ease;
+}
+
+.sleep-screen.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.sleep-content {
+  text-align: center;
+  animation: fadeUp 0.8s ease;
+}
+
+@keyframes fadeUp {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.moon {
+  font-size: 3.5rem;
+  margin-bottom: 15px;
+  animation: moonGlow 3s ease-in-out infinite;
+}
+
+@keyframes moonGlow {
+  0%, 100% { filter: drop-shadow(0 0 15px rgba(255, 255, 150, 0.5)); }
+  50% { filter: drop-shadow(0 0 30px rgba(255, 255, 150, 0.8)); }
+}
+
+.sleep-title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--purple-light);
+  margin-bottom: 20px;
+  text-shadow: 0 0 25px rgba(191, 127, 255, 0.5);
+}
+
+.sleep-message {
+  font-family: var(--font-hand);
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: var(--text-soft);
+  max-width: 280px;
+}
+
+.sleep-clouds {
+  margin-top: 30px;
+  font-size: 1.3rem;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.sleep-clouds span {
+  animation: cloudDrift 4s ease-in-out infinite;
+  opacity: 0.5;
+}
+
+.sleep-clouds span:nth-child(2) { animation-delay: -1s; }
+.sleep-clouds span:nth-child(3) { animation-delay: -2s; }
+
+@keyframes cloudDrift {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   GLITCH LEVELS - Apply to inner elements, not card itself
+   ═══════════════════════════════════════════════════════════════════════════ */
+/* Level 1: count 10-19 */
+.glitch-level-1 .card-inner {
+  animation: shake1 0.4s infinite;
+}
+
+.glitch-level-1 .image-glitch {
+  opacity: 0.15;
+}
+
+@keyframes shake1 {
+  0%, 100% { transform: translate(0); }
+  25% { transform: translate(1px, 0); }
+  75% { transform: translate(-1px, 0); }
+}
+
+/* Level 2: count 20-29 */
+.glitch-level-2 .card-inner {
+  animation: shake2 0.25s infinite;
+}
+
+.glitch-level-2 .image-glitch {
+  opacity: 0.3;
+}
+
+.glitch-level-2 .post-image {
+  filter: blur(1px) saturate(1.2);
+  animation: colorShift 1.5s infinite;
+}
+
+@keyframes shake2 {
+  0%, 100% { transform: translate(0) rotate(0); }
+  25% { transform: translate(2px, 1px) rotate(0.3deg); }
+  75% { transform: translate(-2px, -1px) rotate(-0.3deg); }
+}
+
+@keyframes colorShift {
+  0%, 100% { filter: blur(1px) saturate(1.2) hue-rotate(0deg); }
+  50% { filter: blur(1px) saturate(1.4) hue-rotate(8deg); }
+}
+
+/* Level 3: count 30+ */
+.glitch-level-3 .card-inner {
+  animation: shake3 0.12s infinite;
+}
+
+.glitch-level-3 .image-glitch {
+  opacity: 0.5;
+}
+
+.glitch-level-3 .post-image {
+  filter: blur(2px) saturate(1.5);
+  animation: heavyGlitch 0.3s infinite;
+}
+
+.glitch-level-3 .prompt-text {
+  animation: textShake 0.15s infinite;
+}
+
+@keyframes shake3 {
+  0%, 100% { transform: translate(0) rotate(0) skew(0); }
+  20% { transform: translate(3px, 2px) rotate(0.8deg) skew(0.5deg); }
+  40% { transform: translate(-3px, -1px) rotate(-0.6deg) skew(-0.5deg); }
+  60% { transform: translate(2px, -2px) rotate(0.4deg); }
+  80% { transform: translate(-2px, 1px) rotate(-0.4deg); }
+}
+
+@keyframes heavyGlitch {
+  0%, 100% { filter: blur(2px) saturate(1.5) hue-rotate(0deg); }
+  25% { filter: blur(3px) saturate(2) hue-rotate(15deg); }
+  50% { filter: blur(1px) saturate(1.2) hue-rotate(-10deg); }
+  75% { filter: blur(4px) saturate(1.8) hue-rotate(12deg); }
+}
+
+@keyframes textShake {
+  0%, 100% { transform: translate(0); }
+  25% { transform: translate(-1px, 1px); }
+  50% { transform: translate(1px, -1px); }
+  75% { transform: translate(-1px, -1px); }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Large screens */
+@media (min-width: 768px) {
+  .card-viewport {
+    width: 85vw;
+    max-width: 480px;
+    height: 70vh;
+    max-height: 650px;
+  }
+  
+  .post-card {
+    border-radius: 24px;
+  }
+  
+  .post-caption {
+    font-size: 1.05rem;
+    padding: 15px 20px;
+  }
+  
+  .engagement-bar {
+    padding: 12px 20px;
+    font-size: 0.9rem;
+  }
+}
+
+/* Extra large screens */
+@media (min-width: 1024px) {
+  .card-viewport {
+    width: 50vw;
+    max-width: 520px;
+    height: 75vh;
+    max-height: 700px;
+  }
+}
+
+/* Small screens */
+@media (max-width: 480px) {
+  .main-title {
+    font-size: 2.8rem;
+    letter-spacing: 0.1em;
+  }
+  
+  .subtitle {
+    font-size: 1.2rem;
+  }
+  
+  .card-viewport {
+    width: 92vw;
+    height: 60vh;
+    min-height: 350px;
+    max-height: 500px;
+  }
+  
+  .post-card {
+    border-radius: 16px;
+  }
+  
+  .post-caption {
+    font-size: 0.85rem;
+    padding: 10px 12px;
+  }
+  
+  .engagement-bar {
+    padding: 8px 12px;
+    font-size: 0.75rem;
+    gap: 12px;
+  }
+  
+  .start-btn {
+    padding: 14px 40px;
+    font-size: 1rem;
+  }
+  
+  .float-msg {
+    max-width: 150px;
+    font-size: 0.75rem;
+    padding: 8px 10px;
+  }
+  
+  .prompt-text {
+    font-size: 0.9rem;
+  }
+  
+  .tip-text {
+    font-size: 0.9rem;
+  }
+  
+  .prompt-area {
+    margin-top: 18px;
+  }
+}
+
+/* Very small screens */
+@media (max-width: 360px) {
+  .main-title {
+    font-size: 2.3rem;
+  }
+  
+  .card-viewport {
+    width: 95vw;
+    height: 55vh;
+    min-height: 300px;
+  }
+}
+
+/* Landscape mode on mobile */
+@media (max-height: 500px) {
+  .scene-feed {
+    padding: 10px;
+  }
+  
+  .card-viewport {
+    height: 70vh;
+    max-height: none;
+  }
+  
+  .prompt-area {
+    margin-top: 10px;
+  }
+  
+  .tip-text {
+    margin-top: 8px;
+  }
+}
+
+

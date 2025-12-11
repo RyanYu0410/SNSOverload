@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>One More Scroll Then Sleep</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Caveat:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       SCENE 1: TITLE SCREEN
+       ═══════════════════════════════════════════════════════════════════════ -->
+  <div id="scene1" class="scene scene-title">
+    <!-- Cute decorations -->
+    <div class="title-decorations">
+      <div class="deco-float" style="top: 12%; left: 8%;">♥</div>
+      <div class="deco-float" style="top: 20%; right: 12%;">✦</div>
+      <div class="deco-float" style="top: 40%; left: 5%;">♡</div>
+      <div class="deco-float" style="top: 55%; right: 6%;">★</div>
+      <div class="deco-float" style="top: 75%; left: 10%;">✧</div>
+      <div class="deco-float" style="bottom: 18%; right: 15%;">♪</div>
+      <div class="deco-float" style="top: 30%; left: 15%;">💫</div>
+      <div class="deco-float" style="bottom: 30%; left: 6%;">🌙</div>
+    </div>
+    
+    <!-- Glowing orbs -->
+    <div class="orbs">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+    </div>
+    
+    <!-- Title content -->
+    <div class="title-content">
+      <h1 class="main-title glitch" data-text="scene1">scene1</h1>
+      <div class="title-line">
+        <span class="line-segment"></span>
+        <span class="line-dot"></span>
+        <span class="line-segment"></span>
+      </div>
+      <p class="subtitle">One More Scroll Then Sleep</p>
+      
+      <div class="start-btn-container">
+        <button id="startBtn" class="start-btn">
+          <span class="btn-text">START</span>
+          <span class="btn-glow"></span>
+        </button>
+      </div>
+      
+      <p class="hint-text">click to enter ♡</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       SCENE 2: SCROLLING FEED
+       ═══════════════════════════════════════════════════════════════════════ -->
+  <div id="scene2" class="scene scene-feed hidden">
+    <!-- Sleepy vignette overlay -->
+    <div id="vignetteOverlay" class="vignette-overlay"></div>
+    
+    <!-- Glitch overlays -->
+    <div id="glitchOverlay" class="glitch-overlay"></div>
+    <div id="scanLines" class="scan-lines"></div>
+    <div id="noiseOverlay" class="noise-overlay"></div>
+    
+    <!-- Cute floating decorations -->
+    <div class="feed-decorations">
+      <div class="deco-float deco-tiny" style="top: 8%; left: 4%;">♥</div>
+      <div class="deco-float deco-tiny" style="top: 15%; right: 6%;">✦</div>
+      <div class="deco-float deco-tiny" style="top: 35%; left: 3%;">💬</div>
+      <div class="deco-float deco-tiny" style="top: 50%; right: 4%;">♡</div>
+      <div class="deco-float deco-tiny" style="top: 70%; left: 6%;">★</div>
+      <div class="deco-float deco-tiny" style="bottom: 12%; right: 8%;">✧</div>
+      <div class="deco-float deco-tiny" style="top: 25%; right: 10%;">🌙</div>
+      <div class="deco-float deco-tiny" style="bottom: 25%; left: 8%;">💫</div>
+    </div>
+    
+    <!-- Floating message bubbles (replaces overlays) -->
+    <div id="floatingMessages" class="floating-messages"></div>
+    
+    <!-- Sleep indicator -->
+    <div id="sleepIndicator" class="sleep-indicator"></div>
+    
+    <!-- Card area -->
+    <div class="card-viewport">
+      <div id="cardContainer" class="card-container">
+        <div id="currentCard" class="post-card">
+          <div class="card-inner">
+            <div class="post-image-wrapper">
+              <img id="postImage" src="images/feed1.svg" alt="" class="post-image">
+              <div class="image-glitch"></div>
+            </div>
+            <p id="postCaption" class="post-caption">today's vibe ✨</p>
+            <div class="engagement-bar">
+              <span class="engage-item">♡ <span id="fakeHearts">128</span></span>
+              <span class="engage-item">💬 <span id="fakeComments">24</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Floating prompt -->
+    <div class="prompt-area">
+      <div id="floatingPrompt" class="floating-prompt">
+        <span class="prompt-text" id="promptText">One More Scroll Then Sleep</span>
+        <span class="swipe-hint">↑</span>
+      </div>
+    </div>
+    
+    <!-- Cute counter with timer -->
+    <div class="status-bar">
+      <p id="tipText" class="tip-text"></p>
+      <span class="status-divider">·</span>
+      <p id="timeSpent" class="time-text">0:00</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       REST SCREEN (5 second break)
+       ═══════════════════════════════════════════════════════════════════════ -->
+  <div id="restScreen" class="rest-screen hidden">
+    <div class="rest-content">
+      <div class="breath-circle"></div>
+      <p class="rest-text">just 5 seconds... ♡</p>
+      <p id="restCountdown" class="rest-countdown">5</p>
+      <p class="rest-subtext">(you can keep your eyes open)</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       SLEEP SCREEN
+       ═══════════════════════════════════════════════════════════════════════ -->
+  <div id="sleepScreen" class="sleep-screen hidden">
+    <div class="sleep-content">
+      <div class="moon">🌙</div>
+      <h1 class="sleep-title">Good Night ♡</h1>
+      <p id="sleepMessage" class="sleep-message"></p>
+      <div class="sleep-clouds">
+        <span>☁️</span>
+        <span>💤</span>
+        <span>☁️</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+
